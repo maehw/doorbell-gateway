@@ -136,10 +136,16 @@ bool detectDoorbell(float fVoltage)
         }
     }
 
-    Serial.print("|Sig|: ");
+#if DEBUG
+    Serial.print("V: ");
+    Serial.print( fVoltage );
+    Serial.print(", |Sig|: ");
     Serial.print( abs(fSignal) );
     Serial.print(", Count: ");
     Serial.print( nCnt );
+    Serial.print(", Out: ");
+    Serial.println( bDetected ? 300 : 0 );
+#endif
 
     return bDetected;
 }
@@ -159,9 +165,6 @@ void loop()
     nConversionValue = analogRead(ANALOG_INPUT_PIN);
 
     bDetected = detectDoorbell( countsToMillivolts(nConversionValue) );
-
-    Serial.print(", Out: ");
-    Serial.println( bDetected ? 300 : 0 );
 
     /* detect rising edge */
     if( (bDetectedOld != bDetected) && bDetected )
