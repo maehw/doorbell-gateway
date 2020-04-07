@@ -68,3 +68,12 @@ $ mosquitto_sub -h localhost -p 1883 -t Test | ts
 Apr 01 23:23:11 Connected
 Apr 01 23:42:22 Ding-dong
 ```
+
+Or why not play a sound file remotely?
+
+```
+$ mosquitto_sub -h localhost -p 1883 -t Test | xargs -i play -q /usr/share/sounds/doorbell.wav
+```
+
+There are better and cooler ways to do things? Let me know! Twitter: [@maehw](https://twitter.com/maehw)
+
