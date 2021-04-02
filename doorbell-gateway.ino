@@ -9,6 +9,8 @@
  * This has beentested on a NodeMCU 1.0 ESP12-E.
  */
 
+#define DEBUG 1
+
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 
@@ -72,7 +74,7 @@ void reconnect()
 
 void setup()
 {
-    pinMode(BUILTIN_LED, OUTPUT); // initialize the BUILTIN_LED pin as an output
+    pinMode(LED_BUILTIN, OUTPUT); // initialize the BUILTIN_LED pin as an output
     Serial.begin(230400); // start serial for debug output
     setup_wifi();
 
@@ -104,6 +106,7 @@ bool detectDoorbell(float fVoltage)
 
     fSignal = fVoltage - fOffset;
 
+    /* prepare triggering */
     if( abs(fSignal) > fThreshold )
     {
         nCnt++; // increase likeliness of occurence
@@ -144,7 +147,8 @@ bool detectDoorbell(float fVoltage)
     Serial.print(", Count: ");
     Serial.print( nCnt );
     Serial.print(", Out: ");
-    Serial.println( bDetected ? 300 : 0 );
+    Serial.print( bDetected ? 300 : 0 );
+    Serial.println("");
 #endif
 
     return bDetected;
